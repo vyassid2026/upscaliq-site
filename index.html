@@ -3,329 +3,694 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upscaliq — AI, Marketing & IT Solutions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>Upscaliq — AI, Marketing & IT Solutions | Ahmedabad</title>
+  <meta name="description" content="Upscaliq is your growth team for AI training, digital marketing, and IT consulting — without hiring three agencies. Based in Ahmedabad, India.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* ─── TOKENS ─── */
     :root {
-      --burgundy: #6B1A2A;
-      --burgundy-light: #8B2E40;
-      --burgundy-deep: #4A1020;
-      --champagne: #D4AF75;
-      --champagne-light: #E8D09A;
-      --obsidian: #0C0A0B;
-      --cream: #FAF6EE;
+      --burg:      #6B1A2A;
+      --burg-lt:   #8B2E40;
+      --burg-dk:   #4A1020;
+      --champ:     #D4AF75;
+      --champ-lt:  #E8D09A;
+      --champ-pale:#F5EDD8;
+      --obsidian:  #0C0A0B;
+      --obs-soft:  #131010;
+      --cream:     #FAF6EE;
+      --muted:     rgba(245,237,216,0.45);
+      --border:    rgba(212,175,117,0.12);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
 
     body {
       background: var(--obsidian);
       color: var(--cream);
       font-family: 'DM Sans', sans-serif;
       overflow-x: hidden;
+      cursor: none;
     }
 
+    /* ─── CUSTOM CURSOR ─── */
+    .cursor {
+      position: fixed; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--champ); pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%); transition: transform .1s, width .2s, height .2s, opacity .2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed; width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(212,175,117,0.5); pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%); transition: transform .15s ease, width .3s, height .3s;
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
     body::after {
-      content: '';
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 999; opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9997; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ── NAVBAR ── */
-    .navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: rgba(12,10,11,0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(212,175,117,0.1);
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem; font-weight: 700; letter-spacing: 0.04em;
-      background: linear-gradient(135deg, var(--champagne-light), var(--champagne));
+    /* ─── TYPOGRAPHY ─── */
+    .f-display { font-family: 'Playfair Display', serif; }
+    .f-body    { font-family: 'Cormorant Garamond', serif; }
+
+    .champ-grad {
+      background: linear-gradient(135deg, var(--champ-lt) 0%, var(--champ) 55%, #B8905A 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      text-decoration: none;
     }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(245,237,216,0.55); text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--champagne); }
-    .btn-nav {
-      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.6rem 1.4rem; border-radius: 6px;
-      background: linear-gradient(135deg, var(--burgundy-light), var(--burgundy-deep));
-      border: 1px solid rgba(212,175,117,0.35);
-      color: var(--champagne-light); text-decoration: none; transition: all 0.25s;
-    }
-    .btn-nav:hover { border-color: rgba(212,175,117,0.65); box-shadow: 0 0 24px rgba(107,26,42,0.5); }
-    .hamburger { display: none; background: none; border: none; color: var(--champagne); font-size: 1.4rem; cursor: pointer; }
 
-    /* ── MOBILE ── */
-    .mobile-overlay {
+    /* ─── NAVBAR ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2.5rem;
+      background: rgba(12,10,11,0.88); backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: padding .3s;
+    }
+    .nav.scrolled { padding: .8rem 2.5rem; }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 900;
+      letter-spacing: .04em; text-decoration: none;
+      background: linear-gradient(135deg, var(--champ-lt), var(--champ));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px;
+      background: var(--champ); transition: width .25s;
+    }
+    .nav-links a:hover { color: var(--champ); }
+    .nav-links a:hover::after { width: 100%; }
+    .btn-nav {
+      font-size: .7rem; letter-spacing: .13em; text-transform: uppercase;
+      padding: .6rem 1.4rem; border-radius: 6px;
+      background: linear-gradient(135deg, var(--burg-lt), var(--burg-dk));
+      border: 1px solid rgba(212,175,117,.35);
+      color: var(--champ-lt); text-decoration: none; transition: all .25s;
+    }
+    .btn-nav:hover { border-color: rgba(212,175,117,.7); box-shadow: 0 0 24px rgba(107,26,42,.55); }
+    .ham { display: none; background: none; border: none; color: var(--champ); font-size: 1.4rem; cursor: pointer; }
+
+    /* ─── MOBILE MENU ─── */
+    .mob {
       display: none; position: fixed; inset: 0;
-      background: rgba(12,10,11,0.97); z-index: 200;
+      background: rgba(12,10,11,.97); z-index: 600;
       flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
     }
-    .mobile-overlay.open { display: flex; }
-    .mobile-overlay a { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--cream); text-decoration: none; }
-    .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--champagne); font-size: 1.5rem; cursor: pointer; }
+    .mob.open { display: flex; }
+    .mob a { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--cream); text-decoration: none; transition: color .2s; }
+    .mob a:hover { color: var(--champ); }
+    .mob-x { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--champ); font-size: 1.6rem; cursor: pointer; }
 
-    /* ── HERO ── */
+    /* ─── HERO ─── */
     .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 8rem 1.5rem 5rem; position: relative; overflow: hidden;
+      min-height: 100vh; display: grid; place-items: center;
+      padding: 9rem 2.5rem 5rem; position: relative; overflow: hidden;
     }
-    .orb {
-      position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none;
+    .hero-orb {
+      position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; will-change: transform;
     }
-    .orb-1 { width:600px; height:600px; background:radial-gradient(circle,rgba(107,26,42,0.35) 0%,transparent 70%); top:-150px; left:-150px; animation:f1 10s ease-in-out infinite alternate; }
-    .orb-2 { width:450px; height:450px; background:radial-gradient(circle,rgba(212,175,117,0.1) 0%,transparent 70%); top:100px; right:-100px; animation:f2 12s ease-in-out infinite alternate; }
-    .orb-3 { width:350px; height:350px; background:radial-gradient(circle,rgba(107,26,42,0.2) 0%,transparent 70%); bottom:0; left:40%; animation:f1 9s ease-in-out infinite alternate; }
-    @keyframes f1 { to { transform: translate(25px,15px) scale(1.04); } }
-    @keyframes f2 { to { transform: translate(-20px,25px) scale(1.06); } }
+    .o1 { width:700px;height:700px; background:radial-gradient(circle,rgba(107,26,42,.38) 0%,transparent 70%); top:-200px;left:-200px; animation:drift1 12s ease-in-out infinite alternate; }
+    .o2 { width:500px;height:500px; background:radial-gradient(circle,rgba(212,175,117,.09) 0%,transparent 70%); top:80px;right:-120px; animation:drift2 14s ease-in-out infinite alternate; }
+    .o3 { width:400px;height:400px; background:radial-gradient(circle,rgba(107,26,42,.22) 0%,transparent 70%); bottom:-50px;left:38%; animation:drift1 10s ease-in-out infinite alternate; }
+    @keyframes drift1 { to { transform: translate(30px,20px) scale(1.05); } }
+    @keyframes drift2 { to { transform: translate(-25px,30px) scale(1.07); } }
 
-    .hero-inner { position: relative; z-index: 2; max-width: 860px; }
-    .hero-label { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--champagne); opacity: 0.75; margin-bottom: 1.5rem; display: block; }
-    .hero h1 {
+    /* Granth-style: vertical label left, big headline right */
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 90px 1fr; gap: 3rem;
+      align-items: center; max-width: 1200px; width: 100%;
+    }
+    .hero-vert-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(212,175,117,.55); transform: rotate(180deg);
+      white-space: nowrap;
+    }
+    .hero-content { text-align: left; }
+    .hero-eyebrow {
+      font-size: .66rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--champ); opacity: .8; margin-bottom: 1.2rem; display: block;
+    }
+    .hero-h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 6.5vw, 5.2rem); font-weight: 900;
-      line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.5rem;
+      font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 900;
+      line-height: 1.03; letter-spacing: -.03em;
+      margin-bottom: 1.8rem;
     }
-    .champagne-text {
-      background: linear-gradient(135deg, var(--champagne-light), var(--champagne), #B8915A);
+    .hero-rotating {
+      display: inline-block; overflow: hidden; vertical-align: bottom;
+      height: clamp(3rem, 7vw, 6.5rem);
+    }
+    .hero-rotating-inner {
+      display: flex; flex-direction: column;
+      animation: rotateWords 6s cubic-bezier(.76,0,.24,1) infinite;
+    }
+    .hero-rotating-inner span {
+      display: block;
+      background: linear-gradient(135deg, var(--champ-lt), var(--champ), #B8905A);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      white-space: nowrap;
+      line-height: 1.03;
     }
+    @keyframes rotateWords {
+      0%,20%  { transform: translateY(0); }
+      25%,45% { transform: translateY(-100%); }
+      50%,70% { transform: translateY(-200%); }
+      75%,95% { transform: translateY(-300%); }
+      100%    { transform: translateY(-400%); }
+    }
+    /* extra clone for seamless loop */
+
     .hero-sub {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.1rem, 2.2vw, 1.4rem);
-      color: rgba(245,237,216,0.58); max-width: 600px;
-      margin: 0 auto 2.8rem; line-height: 1.75; font-weight: 300;
+      font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 300;
+      color: var(--muted); max-width: 540px; line-height: 1.8;
+      margin-bottom: 2.5rem;
     }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 1rem 2.5rem; border-radius: 8px;
-      background: linear-gradient(135deg, var(--burgundy-light), var(--burgundy-deep));
-      border: 1px solid rgba(212,175,117,0.4);
-      color: var(--champagne-light); text-decoration: none; transition: all 0.3s;
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      font-size: .72rem; letter-spacing: .13em; text-transform: uppercase;
+      padding: 1rem 2.2rem; border-radius: 8px;
+      background: linear-gradient(135deg, var(--burg-lt), var(--burg-dk));
+      border: 1px solid rgba(212,175,117,.4);
+      color: var(--champ-lt); text-decoration: none; transition: all .3s; display: inline-block;
     }
-    .hero-cta:hover { border-color: rgba(212,175,117,0.7); box-shadow: 0 0 40px rgba(107,26,42,0.55); transform: translateY(-2px); }
+    .btn-primary:hover { border-color: rgba(212,175,117,.75); box-shadow: 0 0 40px rgba(107,26,42,.6); transform: translateY(-2px); }
+    .btn-ghost {
+      font-size: .72rem; letter-spacing: .13em; text-transform: uppercase;
+      padding: 1rem 2.2rem; border-radius: 8px;
+      border: 1px solid rgba(212,175,117,.25);
+      color: var(--champ); text-decoration: none; transition: all .3s; display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(212,175,117,.07); border-color: rgba(212,175,117,.5); }
 
-    /* ── SECTIONS ── */
-    section { padding: 6rem 1.5rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-tag { font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--champagne); opacity: 0.75; margin-bottom: 1rem; display: block; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
-    .section-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: rgba(245,237,216,0.5); line-height: 1.75; font-weight: 300; max-width: 580px; }
-    .divider { width: 48px; height: 1px; background: linear-gradient(90deg, transparent, var(--champagne), transparent); margin: 1.5rem 0; }
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: .85rem 0; overflow: hidden; background: rgba(107,26,42,.04);
+    }
+    .ticker-track { display: flex; gap: 3.5rem; animation: ticker 22s linear infinite; width: max-content; }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(212,175,117,.45); white-space: nowrap; }
+    .ticker-dot { color: var(--champ); opacity: .5; }
 
-    /* ── SERVICES ── */
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
-    .service-card {
-      background: rgba(107,26,42,0.06); border: 1px solid rgba(212,175,117,0.1);
-      border-radius: 16px; padding: 2.5rem; transition: all 0.4s; position: relative; overflow: hidden;
+    /* ─── STATS BAR ─── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-bottom: 1px solid var(--border);
     }
-    .service-card::before {
-      content:''; position:absolute; top:0;left:0;right:0; height:2px;
-      background:linear-gradient(90deg,transparent,var(--champagne),transparent); opacity:0; transition:opacity 0.4s;
+    .stat-item {
+      padding: 3rem 2rem; text-align: center;
+      border-right: 1px solid var(--border);
+      transition: background .3s;
     }
-    .service-card:hover { border-color:rgba(212,175,117,0.28); background:rgba(107,26,42,0.14); transform:translateY(-5px); }
-    .service-card:hover::before { opacity:1; }
-    .service-icon { width:48px; height:48px; background:rgba(107,26,42,0.4); border:1px solid rgba(212,175,117,0.18); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem; }
-    .service-card h3 { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:600; margin-bottom:0.8rem; }
-    .service-card p { font-size:0.88rem; color:rgba(245,237,216,0.5); line-height:1.8; }
-    .service-card strong { color:rgba(245,237,216,0.8); font-weight:500; }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: rgba(107,26,42,.08); }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--champ-lt), var(--champ));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label {
+      font-size: .66rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted); margin-top: .6rem;
+    }
 
-    /* ── BLOG ── */
-    .blog-coming {
-      background: rgba(107,26,42,0.06); border: 1px solid rgba(212,175,117,0.1);
-      border-radius: 16px; padding: 3rem; text-align:center; margin-top:3rem;
-    }
+    /* ─── SECTION COMMONS ─── */
+    .sec { padding: 7rem 2.5rem; }
+    .sec-inner { max-width: 1200px; margin: 0 auto; }
+    .sec-tag { font-size: .63rem; letter-spacing: .28em; text-transform: uppercase; color: var(--champ); opacity: .75; display: block; margin-bottom: .9rem; }
+    .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+    .sec-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--muted); line-height: 1.8; font-weight: 300; max-width: 560px; }
+    .divider { width: 44px; height: 1px; background: linear-gradient(90deg, transparent, var(--champ), transparent); margin: 1.4rem 0; }
+    .divider-c { margin: 1.4rem auto; }
 
-    /* ── CONTACT ── */
-    .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .contact-detail { display:flex; align-items:center; gap:0.75rem; font-size:0.88rem; color:rgba(245,237,216,0.55); margin-top:1rem; }
-    .contact-detail a { color:var(--champagne); text-decoration:none; }
-    .contact-detail a:hover { text-decoration:underline; }
-    .hours-row { display:flex; justify-content:space-between; font-size:0.82rem; color:rgba(245,237,216,0.45); padding:0.6rem 0; border-bottom:1px solid rgba(212,175,117,0.07); }
-    .glass-form { background:rgba(107,26,42,0.07); border:1px solid rgba(212,175,117,0.12); border-radius:16px; padding:2.5rem; }
-    .form-group { display:flex; flex-direction:column; gap:0.85rem; }
-    .form-input {
-      background:rgba(12,10,11,0.75); border:1px solid rgba(212,175,117,0.18);
-      color:var(--cream); font-family:'DM Sans',sans-serif; font-size:0.88rem;
-      padding:0.9rem 1.1rem; border-radius:8px; outline:none; width:100%; transition:border-color 0.2s;
+    /* ─── TWO-COL LAYOUT (like Granth hero text blocks) ─── */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .split.rev { direction: rtl; }
+    .split.rev > * { direction: ltr; }
+
+    /* ─── SERVICE CARDS ─── */
+    .srv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 1.5rem; margin-top: 4rem; }
+    .srv-card {
+      background: rgba(107,26,42,.05); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem;
+      transition: all .4s; position: relative; overflow: hidden;
     }
-    .form-input::placeholder { color:rgba(245,237,216,0.28); }
-    .form-input:focus { border-color:rgba(212,175,117,0.55); }
-    textarea.form-input { resize:vertical; min-height:120px; }
+    .srv-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--champ), transparent);
+      opacity: 0; transition: opacity .4s;
+    }
+    .srv-card:hover { border-color: rgba(212,175,117,.28); background: rgba(107,26,42,.14); transform: translateY(-6px); }
+    .srv-card:hover::before { opacity: 1; }
+    .srv-num {
+      font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900;
+      line-height: 1; color: rgba(212,175,117,.12); position: absolute; top: 1.5rem; right: 1.5rem;
+    }
+    .srv-icon { width: 48px; height: 48px; background: rgba(107,26,42,.5); border: 1px solid rgba(212,175,117,.18); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+    .srv-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: .75rem; }
+    .srv-card p { font-size: .87rem; color: var(--muted); line-height: 1.8; }
+    .srv-card strong { color: rgba(245,237,216,.8); font-weight: 500; }
+    .srv-link { display: inline-flex; align-items: center; gap: .4rem; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--champ); margin-top: 1.5rem; text-decoration: none; transition: gap .2s; }
+    .srv-link:hover { gap: .7rem; }
+
+    /* ─── WHY US PILLARS ─── */
+    .pillars { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 4rem; }
+    .pillar { background: var(--obsidian); padding: 2.5rem; transition: background .3s; }
+    .pillar:hover { background: rgba(107,26,42,.1); }
+    .pillar-num { font-family: 'Playfair Display', serif; font-size: .8rem; color: var(--champ); opacity: .6; margin-bottom: .8rem; }
+    .pillar h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; }
+    .pillar p { font-size: .84rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem; margin-top: 4rem; }
+    .testi-card {
+      background: rgba(107,26,42,.06); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; transition: all .3s;
+    }
+    .testi-card:hover { border-color: rgba(212,175,117,.22); background: rgba(107,26,42,.12); }
+    .stars { display: flex; gap: 3px; margin-bottom: 1rem; }
+    .star { color: var(--champ); font-size: .85rem; }
+    .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: rgba(245,237,216,.7); line-height: 1.75; font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
+    .testi-author { display: flex; align-items: center; gap: .75rem; }
+    .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,var(--burg-lt),var(--burg-dk)); border: 1px solid rgba(212,175,117,.2); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display',serif; font-size: .85rem; color: var(--champ); flex-shrink: 0; }
+    .testi-name { font-size: .82rem; font-weight: 600; }
+    .testi-role { font-size: .72rem; color: var(--muted); margin-top: .15rem; }
+
+    /* ─── CTA BAND (Granth "Give your vision a voice" style) ─── */
+    .cta-band {
+      margin: 0 2.5rem; border-radius: 20px;
+      background: linear-gradient(135deg, var(--burg-dk) 0%, var(--burg) 50%, var(--burg-lt) 100%);
+      border: 1px solid rgba(212,175,117,.25);
+      padding: 5rem 3rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-band::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .cta-band-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,4rem); font-weight: 900; line-height: 1.1; color: var(--cream); position: relative; z-index: 1; margin-bottom: 1.5rem; }
+    .cta-band-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: rgba(245,237,216,.65); font-weight: 300; margin-bottom: 2.5rem; position: relative; z-index: 1; }
+    .btn-cta-band {
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      padding: 1.1rem 2.8rem; border-radius: 8px;
+      background: rgba(12,10,11,.6);
+      border: 1px solid rgba(212,175,117,.4);
+      color: var(--champ-lt); text-decoration: none; position: relative; z-index: 1; transition: all .3s; display: inline-block;
+    }
+    .btn-cta-band:hover { background: rgba(12,10,11,.8); border-color: var(--champ); box-shadow: 0 0 30px rgba(212,175,117,.2); }
+
+    /* ─── CONTACT ─── */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+    .contact-detail { display: flex; gap: .8rem; align-items: flex-start; font-size: .87rem; color: var(--muted); margin-top: 1.2rem; }
+    .contact-detail a { color: var(--champ); text-decoration: none; }
+    .contact-detail a:hover { text-decoration: underline; }
+    .contact-icon { width: 36px; height: 36px; background: rgba(107,26,42,.4); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: .05rem; }
+    .hours-row { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); padding: .65rem 0; border-bottom: 1px solid rgba(212,175,117,.06); }
+
+    .glass-form { background: rgba(107,26,42,.07); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: .9rem; }
+    .inp {
+      background: rgba(12,10,11,.75); border: 1px solid rgba(212,175,117,.18);
+      color: var(--cream); font-family: 'DM Sans',sans-serif; font-size: .87rem;
+      padding: .9rem 1.1rem; border-radius: 8px; outline: none; width: 100%; transition: border-color .2s;
+    }
+    .inp::placeholder { color: rgba(245,237,216,.28); }
+    .inp:focus { border-color: rgba(212,175,117,.55); box-shadow: 0 0 0 3px rgba(212,175,117,.05); }
+    textarea.inp { resize: vertical; min-height: 130px; }
     .btn-submit {
-      width:100%; padding:1rem;
-      background:linear-gradient(135deg,var(--burgundy-light),var(--burgundy-deep));
-      border:1px solid rgba(212,175,117,0.38); border-radius:8px;
-      color:var(--champagne-light); font-family:'DM Sans',sans-serif;
-      font-size:0.74rem; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; transition:all 0.3s;
+      width: 100%; padding: 1rem;
+      background: linear-gradient(135deg, var(--burg-lt), var(--burg-dk));
+      border: 1px solid rgba(212,175,117,.38); border-radius: 8px;
+      color: var(--champ-lt); font-family: 'DM Sans',sans-serif;
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: all .3s;
     }
-    .btn-submit:hover { border-color:rgba(212,175,117,0.65); box-shadow:0 0 30px rgba(107,26,42,0.5); }
+    .btn-submit:hover { border-color: rgba(212,175,117,.65); box-shadow: 0 0 30px rgba(107,26,42,.55); }
 
-    /* ── NEWSLETTER ── */
-    .newsletter-wrap { background:rgba(107,26,42,0.08); border:1px solid rgba(212,175,117,0.1); border-radius:16px; padding:3rem; text-align:center; }
-    .newsletter-form { display:flex; gap:0.75rem; max-width:440px; margin:1.5rem auto 0; }
+    /* ─── NEWSLETTER ─── */
+    .news-wrap { background: rgba(107,26,42,.08); border: 1px solid var(--border); border-radius: 16px; padding: 3.5rem; text-align: center; }
+    .news-form { display: flex; gap: .8rem; max-width: 460px; margin: 1.8rem auto 0; }
 
-    /* ── FOOTER ── */
-    .footer-inner { max-width:1200px; margin:0 auto; border-top:1px solid rgba(212,175,117,0.08); padding:2rem 2.5rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; }
-    .footer-copy { font-size:0.75rem; color:rgba(245,237,216,0.28); }
+    /* ─── FOOTER ─── */
+    .footer { border-top: 1px solid var(--border); max-width: 1200px; margin: 0 auto; padding: 2.5rem 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem; }
+    .footer-logo { font-family: 'Playfair Display',serif; font-size: 1.25rem; font-weight: 900; background: linear-gradient(135deg,var(--champ-lt),var(--champ)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+    .footer-copy { font-size: .72rem; color: rgba(245,237,216,.25); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .7rem; color: var(--muted); text-decoration: none; letter-spacing: .08em; transition: color .2s; }
+    .footer-links a:hover { color: var(--champ); }
 
-    /* ── REVEAL ── */
-    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.in { opacity:1; transform:none; }
+    /* ─── REVEAL ─── */
+    .rev { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .rev.in { opacity: 1; transform: none; }
+    .rev-d1 { transition-delay: .1s; }
+    .rev-d2 { transition-delay: .2s; }
+    .rev-d3 { transition-delay: .3s; }
 
-    @media (max-width:768px) {
-      .nav-links, .btn-nav { display:none; }
-      .hamburger { display:block; }
-      .contact-wrap { grid-template-columns:1fr; gap:2.5rem; }
-      .newsletter-form { flex-direction:column; }
-      .footer-inner { flex-direction:column; text-align:center; }
-      .navbar { padding:1.1rem 1.5rem; }
+    /* ─── WHATSAPP FLOAT ─── */
+    .wa-float {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 400;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,.4); transition: transform .25s;
+      text-decoration: none;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-vert-label { display: none; }
+      .stats { grid-template-columns: repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .split { grid-template-columns: 1fr; gap: 3rem; }
+      .split.rev { direction: ltr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .pillars { grid-template-columns: 1fr; }
+      .news-form { flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .nav-links, .btn-nav { display: none; }
+      .ham { display: block; }
+      .nav { padding: 1rem 1.5rem; }
+      .sec { padding: 5rem 1.5rem; }
+      .hero { padding: 8rem 1.5rem 4rem; }
+      .cta-band { margin: 0 1.5rem; padding: 3.5rem 1.5rem; }
+      .footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+      .stats { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
+<!-- CURSOR -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
 <!-- MOBILE MENU -->
-<div class="mobile-overlay" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMenu()">✕</button>
-  <a href="#services" onclick="toggleMenu()">Services</a>
-  <a href="#blog" onclick="toggleMenu()">Blog</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-  <a href="#contact" onclick="toggleMenu()" class="btn-nav" style="margin-top:1rem;">Get Started</a>
+<div class="mob" id="mob">
+  <button class="mob-x" onclick="toggleMob()">✕</button>
+  <a href="#services" onclick="toggleMob()">Services</a>
+  <a href="#why" onclick="toggleMob()">Why Us</a>
+  <a href="#testimonials" onclick="toggleMob()">Clients</a>
+  <a href="#contact" onclick="toggleMob()">Contact</a>
+  <a href="#contact" onclick="toggleMob()" class="btn-nav" style="margin-top:.5rem;">Get Started</a>
 </div>
 
 <!-- NAVBAR -->
-<nav class="navbar">
+<nav class="nav" id="navbar">
   <a href="#" class="nav-logo">Upscaliq</a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
-    <li><a href="#blog">Blog</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#testimonials">Clients</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="btn-nav">Get Started</a>
-  <button class="hamburger" onclick="toggleMenu()">☰</button>
+  <button class="ham" onclick="toggleMob()">☰</button>
 </nav>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <div class="hero-orb o1"></div>
+  <div class="hero-orb o2"></div>
+  <div class="hero-orb o3"></div>
+
   <div class="hero-inner">
-    <span class="hero-label reveal">Welcome · Ahmedabad, Gujarat, India</span>
-    <h1 class="reveal">
-      Elevate Your<br>
-      <span class="champagne-text">Digital Experience</span>
-    </h1>
-    <p class="hero-sub reveal">Your growth team for AI, marketing, and tech — without hiring three agencies.</p>
-    <a href="#contact" class="hero-cta reveal">Get Started ✦</a>
+    <div class="hero-vert-label">Upscaliq · Ahmedabad · 2026</div>
+
+    <div class="hero-content">
+      <span class="hero-eyebrow rev">Your Growth Team · AI · Marketing · Technology</span>
+
+      <h1 class="hero-h1 rev rev-d1">
+        Elevate<br>
+        Your
+        <div class="hero-rotating">
+          <div class="hero-rotating-inner">
+            <span>Business.</span>
+            <span>Marketing.</span>
+            <span>AI Skills.</span>
+            <span>Digital Presence.</span>
+            <span>Business.</span>
+          </div>
+        </div>
+      </h1>
+
+      <p class="hero-sub rev rev-d2">
+        Your growth team for AI, marketing, and tech — without hiring three agencies. Based in Ahmedabad, serving businesses across India.
+      </p>
+
+      <div class="hero-ctas rev rev-d3">
+        <a href="#contact" class="btn-primary">Get Started ✦</a>
+        <a href="#services" class="btn-ghost">Our Services</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" style="border-top:1px solid rgba(212,175,117,0.07);">
-  <div class="section-inner">
-    <div class="reveal">
-      <span class="section-tag">What We Do</span>
-      <h2 class="section-title">Our Services</h2>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">AI Training</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Digital Marketing</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">IT Consulting</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Business Growth</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Team Upskilling</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Software Development</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">SEO & Visibility</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">AI Tools Adoption</span><span class="ticker-dot">✦</span>
+    <!-- duplicate for infinite loop -->
+    <span class="ticker-item">AI Training</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Digital Marketing</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">IT Consulting</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Business Growth</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Team Upskilling</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Software Development</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">SEO & Visibility</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">AI Tools Adoption</span><span class="ticker-dot">✦</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats rev">
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Core Verticals</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">11+</div>
+    <div class="stat-label">Years Industry Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Client-First Approach</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Growth Potential</div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="sec" id="services" style="border-top:1px solid var(--border);">
+  <div class="sec-inner">
+
+    <div class="rev">
+      <span class="sec-tag">What We Do</span>
+      <h2 class="sec-title">Three Pillars of<br><span class="champ-grad">Your Growth</span></h2>
       <div class="divider"></div>
-      <p class="section-desc">From AI training to digital marketing to full-stack IT — Upscaliq delivers everything your business needs to scale.</p>
+      <p class="sec-desc">From AI adoption to digital visibility to full-stack IT — Upscaliq delivers everything your business needs to scale, without the overhead of three agencies.</p>
     </div>
 
-    <div class="services-grid">
+    <div class="srv-grid">
 
-      <div class="service-card reveal">
-        <div class="service-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
+      <div class="srv-card rev">
+        <div class="srv-num">01</div>
+        <div class="srv-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
         </div>
         <h3>Powering the Future with AI</h3>
         <p><strong>Not sure where to start with AI?</strong><br><br>
         Don't worry — we are here to train your team from basic to intermediate level on AI tools.<br><br>
-        After every session, each department and every team member will be ready to use AI in their work.</p>
+        After every session, each department and every team member will be ready to use AI in their daily work.</p>
+        <a href="#contact" class="srv-link">Start AI Training →</a>
       </div>
 
-      <div class="service-card reveal">
-        <div class="service-icon">
+      <div class="srv-card rev rev-d1">
+        <div class="srv-num">02</div>
+        <div class="srv-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
         <h3>Digital Marketing Solution</h3>
-        <p>Providing digital marketing solution for your organization for better and best outcome and visibility in market.</p>
+        <p>Providing comprehensive digital marketing solutions for your organization for better and best outcome and visibility in market.<br><br>
+        From SEO to social media to content — we build your online presence strategically and sustainably.</p>
+        <a href="#contact" class="srv-link">Grow Your Visibility →</a>
       </div>
 
-      <div class="service-card reveal">
-        <div class="service-icon">
+      <div class="srv-card rev rev-d2">
+        <div class="srv-num">03</div>
+        <div class="srv-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
         <h3>IT Solutions and Consulting</h3>
-        <p>We provide end-to-end IT solutions for both growing and established businesses. Whether you need skilled manpower or complete software development services — we are here to handle it all.</p>
+        <p>We provide end-to-end IT solutions for both growing and established businesses.<br><br>
+        Whether you need skilled manpower or complete software development services — we are here to handle it all, from strategy to delivery.</p>
+        <a href="#contact" class="srv-link">Build With Us →</a>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- BLOG -->
-<section id="blog" style="border-top:1px solid rgba(212,175,117,0.07); text-align:center;">
-  <div class="section-inner">
-    <div class="reveal">
-      <span class="section-tag">Insights</span>
-      <h2 class="section-title">My Blog</h2>
-      <div class="divider" style="margin:1.5rem auto;"></div>
-      <div class="blog-coming">
-        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:rgba(245,237,216,0.4); font-weight:300;">Articles on AI, marketing strategy, and business growth — coming soon.</p>
+<!-- ═══ WHY UPSCALIQ ═══ -->
+<section class="sec" id="why" style="border-top:1px solid var(--border); background: rgba(107,26,42,.03);">
+  <div class="sec-inner">
+    <div style="text-align:center; margin-bottom:1rem;" class="rev">
+      <span class="sec-tag" style="display:block; text-align:center;">Why Us</span>
+      <h2 class="sec-title" style="text-align:center;">We Are Your <span class="champ-grad">Growth Partner</span><br>Not Just a Vendor</h2>
+      <div class="divider divider-c"></div>
+      <p class="sec-desc" style="margin:0 auto; text-align:center;">We think like your team, work like your partner, and deliver like an agency — but without the bloated costs and slow turnarounds.</p>
+    </div>
+
+    <div class="pillars rev">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h4>One Team, Three Capabilities</h4>
+        <p>You get AI consulting, digital marketing, and IT delivery all under one roof — no coordination between three different vendors. Faster execution, unified strategy.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h4>Senior-Led Execution</h4>
+        <p>With 11+ years of enterprise SaaS and consulting experience, you get seasoned thinking — not junior-level trial and error. Every engagement is led by someone who has done it before.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h4>Ahmedabad-Rooted, India-Focused</h4>
+        <p>We understand the Indian business landscape deeply — the decision cycles, the budget sensitivities, the relationship-first culture. We build for how India actually works.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <h4>AI-First, Always</h4>
+        <p>Every service we deliver is augmented by AI tools — faster outputs, smarter insights, lower costs. We don't just train you on AI; we use it ourselves at every step.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" style="border-top:1px solid rgba(212,175,117,0.07);">
-  <div class="section-inner">
+<!-- ═══ CTA BAND ═══ -->
+<div style="padding: 0 0 5rem;">
+  <div class="cta-band">
+    <h2 class="cta-band-title">Give your business<br>a digital edge.</h2>
+    <p class="cta-band-sub">Content, technology, and strategy that connects your vision to the right audience — perfectly.</p>
+    <a href="#contact" class="btn-cta-band">Connect Now ✦</a>
+  </div>
+</div>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="sec" id="testimonials" style="border-top:1px solid var(--border);">
+  <div class="sec-inner">
+    <div class="rev">
+      <span class="sec-tag">Words on the Street</span>
+      <h2 class="sec-title">What Our <span class="champ-grad">Clients</span> Say</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="testi-grid">
+
+      <div class="testi-card rev">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Upscaliq helped our entire team get AI-ready. After the training sessions, every department could independently use AI tools for their daily work. The transformation was visible within weeks."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Rajesh Mehta</div>
+            <div class="testi-role">Director, TechVenture Ahmedabad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card rev rev-d1">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"We came to Upscaliq for digital marketing support and got much more — a strategic partner who understood our business deeply. Our online visibility tripled in four months."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div>
+            <div class="testi-name">Priya Shah</div>
+            <div class="testi-role">Founder, HealthFirst Clinic</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card rev rev-d2">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"The IT consulting engagement was smooth, professional, and delivered on time. What impressed us most was how they aligned tech decisions with our actual business goals — not just the tech spec."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Ankit Patel</div>
+            <div class="testi-role">CEO, GrowthStack Solutions</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:2rem; font-size:.75rem; color:rgba(245,237,216,.3); letter-spacing:.12em; text-transform:uppercase;" class="rev">Add your real client testimonials here</p>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="sec" id="contact" style="border-top:1px solid var(--border);">
+  <div class="sec-inner">
     <div class="contact-wrap">
 
       <div>
-        <div class="reveal">
-          <span class="section-tag">Get In Touch</span>
-          <h2 class="section-title">Contact Us</h2>
+        <div class="rev">
+          <span class="sec-tag">Get In Touch</span>
+          <h2 class="sec-title">Questions or<br><span class="champ-grad">Comments?</span></h2>
           <div class="divider"></div>
-          <p class="section-desc">We know that our clients have unique needs. Send us a message and we will get back to you soon.</p>
+          <p class="sec-desc">We know that our clients have unique needs. Send us a message and we will get back to you soon.</p>
         </div>
 
-        <div class="reveal" style="margin-top:2rem;">
+        <div class="rev rev-d1" style="margin-top:2.2rem; display:flex; flex-direction:column; gap:.3rem;">
           <div class="contact-detail">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Ahmedabad, Gujarat, India
+            <div class="contact-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div>Ahmedabad, Gujarat, India</div>
           </div>
           <div class="contact-detail">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 11.7 19.79 19.79 0 0 1 1.07 3.12 2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <a href="tel:9898715528">9898715528</a>
+            <div class="contact-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF75" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 11.7 19.79 19.79 0 0 1 1.07 3.12 2 2 0 0 1 3.06 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><a href="tel:9898715528">9898715528</a></div>
           </div>
         </div>
 
-        <div class="reveal" style="margin-top:2rem;">
-          <div style="font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--champagne); opacity:0.7; margin-bottom:0.75rem;">Business Hours</div>
-          <div class="hours-row"><span>Open Today</span><span style="color:var(--champagne);">09:00 am – 05:00 pm</span></div>
+        <div class="rev rev-d2" style="margin-top:2rem;">
+          <div style="font-size:.64rem; letter-spacing:.22em; text-transform:uppercase; color:var(--champ); opacity:.7; margin-bottom:.8rem;">Business Hours</div>
+          <div class="hours-row"><span>Monday – Saturday</span><span style="color:var(--champ);">09:00 am – 05:00 pm</span></div>
+          <div class="hours-row" style="border-bottom:none;"><span>Sunday</span><span style="color:var(--muted);">Closed</span></div>
         </div>
       </div>
 
-      <div class="glass-form reveal">
+      <div class="glass-form rev rev-d1">
         <form class="form-group" action="https://formspree.io/f/your-id" method="POST">
-          <input type="text" name="name" placeholder="Your Name" required class="form-input">
-          <input type="email" name="email" placeholder="Your Email" required class="form-input">
-          <textarea name="message" placeholder="Your Message or Questions" class="form-input"></textarea>
+          <input type="text"  name="name"    placeholder="Your Name"    required class="inp">
+          <input type="email" name="email"   placeholder="Your Email"   required class="inp">
+          <input type="text"  name="company" placeholder="Company Name (optional)" class="inp">
+          <textarea           name="message" placeholder="Tell us about your needs…" class="inp"></textarea>
           <button type="submit" class="btn-submit">Send Message ✦</button>
         </form>
+        <p style="font-size:.7rem; color:rgba(245,237,216,.25); text-align:center; margin-top:1rem;">We respond within 24 hours · No spam, ever.</p>
       </div>
 
     </div>
@@ -333,15 +698,15 @@
 </section>
 
 <!-- NEWSLETTER -->
-<section style="border-top:1px solid rgba(212,175,117,0.07); padding:4rem 1.5rem;">
-  <div class="section-inner">
-    <div class="newsletter-wrap reveal">
-      <span class="section-tag">Stay Updated</span>
-      <h2 class="section-title" style="font-size:1.6rem;">Signup for Newsletters!</h2>
-      <p style="font-size:0.88rem; color:rgba(245,237,216,0.4); margin-top:0.5rem;">Get AI tips, marketing insights and business growth articles — straight to your inbox.</p>
-      <form class="newsletter-form" action="https://formspree.io/f/your-id" method="POST">
-        <input type="email" name="email" placeholder="Email" required class="form-input" style="flex:1;">
-        <button type="submit" class="btn-submit" style="width:auto; padding:0.9rem 1.5rem; white-space:nowrap;">Sign Up</button>
+<section style="padding:3rem 2.5rem 5rem;">
+  <div class="sec-inner">
+    <div class="news-wrap rev">
+      <span class="sec-tag" style="text-align:center; display:block;">Stay Updated</span>
+      <h2 class="sec-title" style="font-size:1.7rem; text-align:center;">Signup for Newsletters!</h2>
+      <p style="font-size:.87rem; color:var(--muted); margin-top:.5rem; text-align:center;">AI tips, marketing insights and business growth articles — straight to your inbox.</p>
+      <form class="news-form" action="https://formspree.io/f/your-id" method="POST">
+        <input type="email" name="email" placeholder="Your Email" required class="inp" style="flex:1;">
+        <button type="submit" class="btn-submit" style="width:auto; padding:.9rem 1.8rem; white-space:nowrap;">Sign Up</button>
       </form>
     </div>
   </div>
@@ -349,22 +714,53 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <a href="#" class="nav-logo" style="font-family:'Playfair Display',serif; font-size:1.2rem; background:linear-gradient(135deg,#E8D09A,#D4AF75); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; text-decoration:none;">Upscaliq</a>
-    <span class="footer-copy">Copyright © 2026 Upscaliq — All Rights Reserved.</span>
-    <span style="font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(212,175,117,0.3);">Ahmedabad, Gujarat, India</span>
+  <div class="footer">
+    <a href="#" class="footer-logo">Upscaliq</a>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#why">Why Us</a>
+      <a href="#testimonials">Clients</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <span class="footer-copy">© 2026 Upscaliq · All Rights Reserved · Ahmedabad, India</span>
   </div>
 </footer>
 
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919898715528?text=Hi%20Upscaliq%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services." class="wa-float" target="_blank" rel="noopener" title="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.122 1.524 5.857L.057 23.428l5.735-1.502A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.814 9.814 0 0 1-5.007-1.372l-.36-.213-3.405.894.908-3.32-.235-.38A9.818 9.818 0 0 1 2.182 12C2.182 6.579 6.579 2.182 12 2.182c5.421 0 9.818 4.397 9.818 9.818 0 5.421-4.397 9.818-9.818 9.818z"/></svg>
+</a>
+
 <script>
-  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), i * 80); io.unobserve(e.target); }
-    });
+  /* ── Cursor ── */
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('ring');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    }, 60);
+  });
+  document.querySelectorAll('a,button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.style.width='20px'; cur.style.height='20px'; cur.style.opacity='.5'; });
+    el.addEventListener('mouseleave', () => { cur.style.width='10px'; cur.style.height='10px'; cur.style.opacity='1'; });
+  });
+
+  /* ── Navbar shrink ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* ── Mobile menu ── */
+  function toggleMob() { document.getElementById('mob').classList.toggle('open'); }
+
+  /* ── Scroll reveal ── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.08 });
-  reveals.forEach(el => io.observe(el));
+  document.querySelectorAll('.rev').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
