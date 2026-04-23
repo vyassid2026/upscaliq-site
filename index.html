@@ -35,21 +35,14 @@
     .nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; justify-content:space-between; align-items:center; padding:1rem 2.5rem; background:rgba(12,10,11,.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); transition:padding .3s; }
     .nav.scrolled { padding:.7rem 2.5rem; }
 
-    /* Logo lockup — actual image with white BG stripped */
-    .nav-logo-wrap { display:flex; align-items:center; gap:.65rem; text-decoration:none; }
-    .nav-logo-img {
-      height: 38px;
-      width: auto;
-      /* screen blend mode makes white background transparent on dark navbar */
-      mix-blend-mode: screen;
-      filter: brightness(1.1) contrast(1.05);
-      transition: opacity .2s;
-    }
-    .nav-logo-img:hover { opacity: .85; }
-    .nav-wordmark { font-family:'DM Sans',sans-serif; font-size:1.3rem; font-weight:700; letter-spacing:-.01em; line-height:1; }
+    /* ── LOGO LOCKUP ── */
+    .nav-logo-wrap { display:flex; align-items:center; gap:.75rem; text-decoration:none; }
+    .logo-icon { flex-shrink:0; }
+    .logo-text-wrap { display:flex; flex-direction:column; gap:.1rem; }
+    .nav-wordmark { font-family:'DM Sans',sans-serif; font-size:1.35rem; font-weight:800; letter-spacing:-.02em; line-height:1; }
     .nav-wordmark .upscal { color:var(--cream); }
     .nav-wordmark .iq     { color:var(--coral); }
-    .nav-tagline { font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(245,237,216,.4); margin-top:.15rem; }
+    .nav-tagline { font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(245,237,216,.38); }
 
     .nav-links { display:flex; gap:2rem; list-style:none; }
     .nav-links a { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; position:relative; }
@@ -352,8 +345,28 @@
 <!-- ═══ NAVBAR ═══ -->
 <nav class="nav" id="navbar">
   <a href="#" class="nav-logo-wrap">
-    <!-- Full logo image — mix-blend-mode:screen strips the white background on dark navbar -->
-    <img src="logo.jpeg" alt="Upscaliq Logo" class="nav-logo-img">
+    <!-- SVG icon: brain-circuit + bar chart + upward arrow matching actual logo -->
+    <svg class="logo-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Bars -->
+      <rect x="4"  y="30" width="6" height="10" rx="1.5" fill="#E8735A"/>
+      <rect x="12" y="24" width="6" height="16" rx="1.5" fill="#E8735A"/>
+      <rect x="20" y="17" width="6" height="23" rx="1.5" fill="#E8735A"/>
+      <!-- Upward arrow line -->
+      <path d="M6 22 Q14 6 30 4" stroke="#E8735A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- Arrowhead -->
+      <path d="M24 2 L31 4 L28 11" stroke="#E8735A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Brain nodes -->
+      <circle cx="8"  cy="18" r="1.8" fill="#E8735A" opacity=".7"/>
+      <circle cx="13" cy="13" r="1.8" fill="#E8735A" opacity=".7"/>
+      <circle cx="8"  cy="13" r="1.4" fill="#E8735A" opacity=".45"/>
+      <circle cx="13" cy="18" r="1.4" fill="#E8735A" opacity=".45"/>
+      <line x1="8" y1="18" x2="13" y2="13" stroke="#E8735A" stroke-width="1" opacity=".5"/>
+      <line x1="8" y1="13" x2="13" y2="18" stroke="#E8735A" stroke-width="1" opacity=".35"/>
+    </svg>
+    <div class="logo-text-wrap">
+      <div class="nav-wordmark"><span class="upscal">upscal</span><span class="iq">iq</span></div>
+      <div class="nav-tagline">AI · Marketing · Technology</div>
+    </div>
   </a>
 
   <ul class="nav-links">
@@ -572,21 +585,38 @@
     <div class="tg">
       <div class="tc rev">
         <div class="stars">★★★★★</div>
-        <p class="ttext">"Upscaliq helped our entire team get AI-ready. After the training sessions, every department could independently use AI tools for their daily work. The transformation was visible within weeks."</p>
-        <div class="tauth"><div class="tav">R</div><div><div class="tname">Rajesh Mehta</div><div class="trole">Director, TechVenture Ahmedabad</div></div></div>
+        <p class="ttext">"Consulting approach of Mr. Siddharth Vyas is unique and helps us for sales and marketing process enhancements for my team. Marketing ideas and execution was too good and upto the mark. Best industry practices and result oriented approach makes him different from others."</p>
+        <div class="tauth">
+          <div class="tav">P</div>
+          <div>
+            <div class="tname">Parth Solanki</div>
+            <div class="trole">Founder & CEO · Quicklead.io</div>
+          </div>
+        </div>
       </div>
       <div class="tc rev d1">
         <div class="stars">★★★★★</div>
-        <p class="ttext">"We came to Upscaliq for digital marketing and got a true strategic partner. Our online visibility tripled in four months. The results speak for themselves."</p>
-        <div class="tauth"><div class="tav">P</div><div><div class="tname">Priya Shah</div><div class="trole">Founder, HealthFirst Clinic</div></div></div>
+        <p class="ttext">"AI enhancement in departments were fabulous. Team was using AI since long but the experience of Mr. Siddharth Vyas helped us a lot to enhance capabilities of the team by bringing actual use cases of AI tools in day to day work."</p>
+        <div class="tauth">
+          <div class="tav">V</div>
+          <div>
+            <div class="tname">Mr. Vishal Rana</div>
+            <div class="trole">Co-Founder · Advance Idea Module</div>
+          </div>
+        </div>
       </div>
       <div class="tc rev d2">
         <div class="stars">★★★★★</div>
-        <p class="ttext">"The IT consulting was smooth, professional, and on-time. What impressed us most was how they aligned tech decisions with our actual business goals — not just the spec."</p>
-        <div class="tauth"><div class="tav">A</div><div><div class="tname">Ankit Patel</div><div class="trole">CEO, GrowthStack Solutions</div></div></div>
+        <p class="ttext">"I got understanding of Video Generation from Mr. Siddharth Vyas with great detailing and efficiency. Many more AI tools information with use cases and actual outcomes — truly valuable sessions."</p>
+        <div class="tauth">
+          <div class="tav">H</div>
+          <div>
+            <div class="tname">Mr. Harsh Patel</div>
+            <div class="trole">Upscaliq Client</div>
+          </div>
+        </div>
       </div>
     </div>
-    <p style="text-align:center;margin-top:2rem;font-size:.72rem;color:rgba(245,237,216,.25);letter-spacing:.12em;text-transform:uppercase" class="rev">Replace with your real client testimonials</p>
   </div>
 </section>
 
@@ -644,8 +674,23 @@
 <!-- FOOTER -->
 <footer>
   <div class="foot">
-    <a href="#" class="flogo-wrap">
-      <img src="logo.jpeg" alt="Upscaliq" style="height:32px;width:auto;mix-blend-mode:screen;filter:brightness(1.1);">
+    <a href="#" class="flogo-wrap" style="display:flex;align-items:center;gap:.6rem;text-decoration:none;">
+      <svg width="36" height="36" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4"  y="30" width="6" height="10" rx="1.5" fill="#E8735A"/>
+        <rect x="12" y="24" width="6" height="16" rx="1.5" fill="#E8735A"/>
+        <rect x="20" y="17" width="6" height="23" rx="1.5" fill="#E8735A"/>
+        <path d="M6 22 Q14 6 30 4" stroke="#E8735A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M24 2 L31 4 L28 11" stroke="#E8735A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="8"  cy="18" r="1.8" fill="#E8735A" opacity=".7"/>
+        <circle cx="13" cy="13" r="1.8" fill="#E8735A" opacity=".7"/>
+        <line x1="8" y1="18" x2="13" y2="13" stroke="#E8735A" stroke-width="1" opacity=".5"/>
+      </svg>
+      <div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:-.02em;line-height:1;">
+          <span style="color:var(--cream);">upscal</span><span style="color:#E8735A;">iq</span>
+        </div>
+        <div style="font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,216,.35);margin-top:.15rem;">AI · Marketing · Technology</div>
+      </div>
     </a>
     <div class="flinks">
       <a href="#services">Services</a>
