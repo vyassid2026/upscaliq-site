@@ -1,0 +1,13 @@
+/* ============================================================
+   UPSCALIQ BRAND SYSTEM — v2.0 2026
+   Fonts: Poppins (headings) + Inter (body) — brand guideline
+   Colours: Coral #E8785A · Navy #2D3047 · Navy Dark #1A1D2E
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+
+:root{
+  --coral:#E8785A; --coral-dark:#C45A3E; --coral-lt:#F5A58A; --coral-tint:#FBE8E2;
+  --navy:#2D3047; --navy-dark:#1A1D2E;
+  --grey:#777; --grey-light:#E0E0E0; --cream:#FAFAFA; --white:#fff;
+  --border:rgba(45,48,71,.1); --border-lt:rgba(232,120,90,.15);
+}
